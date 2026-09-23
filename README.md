@@ -67,7 +67,7 @@ site/                               # Astro 文档站（部署到 GitHub Pages�
 
 **只想快速了解** → 读 [`ai-agent-sandbox.md`](ai-agent-sandbox.md)（约 10 分钟）。
 
-**想系统学习** → 从 [`agent-sandbox-tutorial/00-心智模型.md`](agent-sandbox-tutorial/00-心智模型.md) 开始，按顺序读到第 10 章。
+**想系统学习** → 从 [`agent-sandbox-tutorial/00-心智模型.md`](agent-sandbox-tutorial/00-心智模型.md) 开始，按顺序读到第 10 章（全套约 120–150 分钟；每章含导读、原理取舍、代码示例、常见误区与动手练习）。
 
 **想动手跑** → 直接进实验目录：
 
