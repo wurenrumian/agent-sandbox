@@ -1,0 +1,40 @@
+---
+title: "07 产品版图"
+description: "托管与自建选项、选型三问与对比。"
+---
+
+> ⚠️ 该领域变化很快，选型时务必核对最新信息。
+
+## 7.1 分类一览
+
+| 类别 | 代表 | 特点 |
+|---|---|---|
+| 专用沙箱云 | E2B、Daytona、Modal Sandboxes、Cloudflare Sandbox、Vercel Sandbox、Runloop、Blaxel、Northflank | 开箱即用，省运维 |
+| 大厂内置 | OpenAI Code Interpreter / AgentKit、Anthropic code execution、Google code execution | 与自家模型深度集成 |
+| 框架自带 | OpenHands runtime、AutoGen code executor、LangChain executors | 与 Agent 框架绑定 |
+| 自建 | K8s + Firecracker / Kata / gVisor | 可控性最高 |
+| 浏览器 / computer-use | Playwright in container、Browserbase、Steel | 操作整台电脑 |
+| 本地 / 教学 | Docker、bubblewrap、Linux namespaces | 零依赖、易理解 |
+
+## 7.2 选型三问
+
+1. **托管还是自建？** 想快 → 托管；要可控 / 数据合规 → 自建
+2. **隔离要多强？** 多租户不可信 → microVM
+3. **要 GPU 吗？** 要 → 看是否支持 GPU 直通
+
+## 7.3 自建 vs 托管对比
+
+| 维度 | 自建 | 托管 |
+|---|---|---|
+| 上手速度 | 慢 | 快 |
+| 运维成本 | 高 | 低 |
+| 可控性 | 高 | 中 |
+| 数据合规 | 完全自控 | 看厂商 |
+| 成本 | 边际成本低，前期投入高 | 按用量付费 |
+| 适合 | 规模大、合规严 | 快速验证、中小规模 |
+
+## 动手练习 7
+
+用「选型三问」给 [第 5 章练习](/agent-sandbox/guide/05-isolation-backends/) 里的三个场景各挑一个具体产品。
+
+---

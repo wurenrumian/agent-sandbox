@@ -1,17 +1,25 @@
 #!/usr/bin/env python3
-"""检查所有 markdown 文件里的相对链接是否有效。
+"""检查仓库内 markdown 文件里的相对链接是否有效。
 
 用法：
     python3 tools/check_links.py
 
-退出码：0 全部有效；1 存在断链。
+说明：
+    - 跳过 site/node_modules、site/dist、site/.astro、.git
+    - 跳过外链（http/https/mailto）、锚点（#）与站点绝对路径（/...）
+    - 退出码：0 全部有效；1 存在断链
 """
 import pathlib
 import re
 import sys
 
 LINK_RE = re.compile(r"\]\(([^)]+)\)")
-SKIP_PREFIX = ("http://", "https://", "mailto:", "#")
+SKIP_PREFIX = ("http://", "https://", "mailto:", "#", "/")
+IGNORE_DIRS = {"node_modules", "dist", ".astro", ".git", "__pycache__"}
+
+
+def is_ignored(path: pathlib.Path, root: pathlib.Path) -> bool:
+    return any(part in IGNORE_DIRS for part in path.relative_to(root).parts)
 
 
 def main() -> int:
@@ -20,6 +28,8 @@ def main() -> int:
     checked = 0
 
     for md in sorted(root.rglob("*.md")):
+        if is_ignored(md, root):
+            continue
         text = md.read_text(encoding="utf-8", errors="ignore")
         for match in LINK_RE.finditer(text):
             link = match.group(1).split("#")[0].strip()

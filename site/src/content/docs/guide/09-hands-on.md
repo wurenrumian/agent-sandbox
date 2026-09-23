@@ -1,0 +1,160 @@
+---
+title: "09 实战搭建"
+description: "用 bwrap 与 Docker 搭建可运行的沙箱，并封装为 MCP 工具。"
+---
+
+本章有两套方案：
+
+- **方案 A（本机、零依赖）**：bubblewrap / Linux namespaces —— 不需要 Docker、不需要 root，**已实测可跑**，见 [`../agent-sandbox-lab/`](/agent-sandbox/lab/)。
+- **方案 B（容器）**：Docker —— 更接近生产，但需要 Docker 环境。
+
+---
+
+## 9.1 方案 A：bubblewrap 沙箱（推荐先跑这个）
+
+配套代码在 [`../agent-sandbox-lab/`](/agent-sandbox/lab/)，实测输出见 [`../agent-sandbox-lab/RESULTS.md`](/agent-sandbox/lab/results/)。
+
+### 核心隔离参数
+
+```bash
+bwrap \
+  --unshare-all            # 用户/IPC/PID/网络/UTS/cgroup 全隔离
+  --die-with-parent        # 父进程退出，沙箱一并结束
+  --ro-bind /usr /usr      # 系统目录只读
+  --ro-bind /etc /etc
+  --ro-bind /dev/null /etc/shadow   # 屏蔽敏感文件
+  --proc /proc --dev /dev --tmpfs /tmp
+  --bind ./work /work --chdir /work # 唯一可写工作区
+  --clearenv --setenv PATH /usr/bin:/usr/sbin:/bin:/sbin --setenv HOME /work
+  -- sh -lc 'echo hello from sandbox'
+```
+
+### 可复用包装器
+
+[`../agent-sandbox-lab/sandbox_run.py`](https://github.com/wurenrumian/agent-sandbox/blob/main/agent-sandbox-lab/sandbox_run.py) 就是「Agent 沙箱」的最小形态：
+
+```python
+from sandbox_run import run
+
+result = run("python3 /work/agent_code.py", timeout=30)
+print(result["stdout"])
+```
+
+### 实测结果（节选）
+
+| 实验 | 宿主 | 沙箱 | 结论 |
+|---|---|---|---|
+| PID 隔离 | 36 个进程可见 | 4 个进程 | 看不到宿主进程 |
+| 网络隔离 | 可连外网 | 连接失败 | 默认无网络 |
+| 文件系统 | 全可写 | `/etc` 只读、`/work` 可写 | 只读根 |
+| 资源限额 | — | 300MB 分配报 `MemoryError` | 限额生效 |
+| 逃逸尝试 | — | 读密钥 / 出网 / 写 `/etc` 全失败 | 拦得住 |
+
+运行方式：
+
+```bash
+cd ../agent-sandbox-lab
+chmod +x exp/*.sh run_all.sh sandbox_run.py
+./run_all.sh | tee RESULTS.md
+```
+
+---
+
+## 9.2 方案 B：最小 Docker 沙箱
+
+```bash
+docker run --rm \
+  --network none \
+  --read-only \
+  --tmpfs /tmp:rw,size=64m \
+  --cpus=1 \
+  --memory=512m \
+  --pids-limit=128 \
+  --cap-drop ALL \
+  --security-opt no-new-privileges \
+  --user 65534:65534 \
+  -v "$PWD/work:/workspace:rw" \
+  python:3.12-slim \
+  python /workspace/main.py
+```
+
+**关键 flag 解释：**
+
+| flag | 作用 |
+|---|---|
+| `--network none` | **默认断网**，最重要 |
+| `--read-only` | 根文件系统只读，防篡改 |
+| `--tmpfs /tmp:...` | 给需要写的目录一个临时可写层 |
+| `--cpus` / `--memory` / `--pids-limit` | 防资源滥用 |
+| `--cap-drop ALL` | 去掉所有 Linux capabilities |
+| `--security-opt no-new-privileges` | 禁止提权 |
+| `--user 65534:65534` | 以 nobody 运行，非 root |
+| `-v ...:/workspace:rw` | 只把工作目录挂进去 |
+
+---
+
+## 9.3 暴露成 MCP 工具
+
+把沙箱包成 MCP server，Agent 就能通过工具调用使用它：
+
+```python
+from mcp.server.fastmcp import FastMCP
+from sandbox_run import run, WORK
+from pathlib import Path
+
+mcp = FastMCP("sandbox")
+
+@mcp.tool()
+def exec(cmd: str, timeout: int = 30) -> dict:
+    """在沙箱里执行 shell 命令。"""
+    return run(cmd, timeout=timeout)
+
+@mcp.tool()
+def read_file(path: str) -> str:
+    """读取沙箱工作区文件。"""
+    return (Path(WORK) / path).read_text()
+
+@mcp.tool()
+def write_file(path: str, content: str) -> str:
+    """写入沙箱工作区文件。"""
+    p = Path(WORK) / path
+    p.parent.mkdir(parents=True, exist_ok=True)
+    p.write_text(content)
+    return f"written {len(content)} bytes"
+
+if __name__ == "__main__":
+    mcp.run()
+```
+
+完整示例见 [`../agent-sandbox-lab/code/sandbox_mcp.py`](https://github.com/wurenrumian/agent-sandbox/blob/main/agent-sandbox-lab/code/sandbox_mcp.py)。
+
+---
+
+## 9.4 要联网时加白名单
+
+**不要**直接给沙箱开放网络。正确做法是走**出网代理**：
+
+```
+沙箱 (--network none) ──► 本地代理(白名单) ──► 互联网
+```
+
+- 代理只放行允许的域名（如 `pypi.org`、`files.pythonhosted.org`）
+- 所有出网请求记日志，便于审计
+- 需要更强控制时做 TLS 拦截 / 内容检查
+
+---
+
+## 9.5 生产化清单
+
+- [ ] 换成 Firecracker microVM（多租户 / 不可信）
+- [ ] 环境预热成池，控制面做秒级调度
+- [ ] 每会话独立 + 用完即销毁
+- [ ] 不放长期 secret，用短期 token
+- [ ] 全量命令审计 + 资源计量
+- [ ] 超时 / OOM / 僵尸环境自动清理
+
+## 动手练习 9
+
+把方案 A 跑通，让一个 Agent（或脚本）通过 MCP 工具在沙箱里写文件并执行。
+
+---

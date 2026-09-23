@@ -14,3 +14,8 @@ agent-sandbox-lab/work/*
 *.swp
 .idea/
 .vscode/
+
+# Astro 文档站
+site/node_modules/
+site/dist/
+site/.astro/
