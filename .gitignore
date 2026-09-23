@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# 实验生成物（由 run_all.sh 重新生成，不纳入版本控制）
+agent-sandbox-lab/work/*
+!agent-sandbox-lab/work/agent_code.py
+
+# 编辑器 / 系统
+.DS_Store
+*.swp
+.idea/
+.vscode/
