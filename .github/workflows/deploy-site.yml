@@ -30,6 +30,9 @@ jobs:
       - name: Install dependencies
         working-directory: site
         run: npm ci
+      - name: Sync docs from repo markdown
+        working-directory: site
+        run: python3 scripts/sync-docs.py
       - name: Build
         working-directory: site
         run: npm run build

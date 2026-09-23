@@ -1,5 +1,8 @@
 # AI Agent 沙箱（Sandbox）资料包
 
+[![在线文档](https://img.shields.io/badge/%E5%9C%A8%E7%BA%BF%E6%96%87%E6%A1%A3-wurenrumian.github.io-blue)](https://wurenrumian.github.io/agent-sandbox/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+
 > 关于「AI Agent 执行沙箱」的一套完整资料：**概念参考 + 系统教程 + 可运行实验**。
 > 最后更新：2026-09-23
 

@@ -14,6 +14,9 @@ hero:
       variant: minimal
 ---
 
+[![在线文档](https://img.shields.io/badge/%E5%9C%A8%E7%BA%BF%E6%96%87%E6%A1%A3-wurenrumian.github.io-blue)](https://wurenrumian.github.io/agent-sandbox/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/wurenrumian/agent-sandbox/blob/main/LICENSE)
+
 > 关于「AI Agent 执行沙箱」的一套完整资料：**概念参考 + 系统教程 + 可运行实验**。
 > 最后更新：2026-09-23
 
@@ -96,10 +99,13 @@ chmod +x exp/*.sh run_all.sh sandbox_run.py
 根目录提供了 `Makefile`：
 
 ```bash
-make help         # 显示所有命令
-make lab          # 运行全部沙箱实验
-make check-links  # 检查所有 markdown 链接
-make clean        # 清理实验生成物与缓存
+make help          # 显示所有命令
+make lab           # 运行全部沙箱实验
+make check-links   # 检查所有 markdown 链接
+make site-sync     # 从仓库 markdown 重新生成站点内容
+make site-dev      # 启动文档站开发服务器
+make site-build    # 构建文档站
+make clean         # 清理实验生成物与缓存
 ```
 
 ---
