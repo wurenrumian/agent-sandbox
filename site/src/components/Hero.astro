@@ -1,0 +1,290 @@
+---
+import { Image } from 'astro:assets';
+import DraftContentNotice from '@astrojs/starlight/components/DraftContentNotice.astro';
+import { LinkButton } from '@astrojs/starlight/components';
+
+const { data } = Astro.locals.starlightRoute.entry;
+const { title = data.title, tagline, image, actions = [] } = data.hero || {};
+
+const imageAttrs = {
+	loading: 'eager' as const,
+	decoding: 'async' as const,
+	width: 400,
+	height: 400,
+	alt: image?.alt || '',
+};
+
+let darkImage: ImageMetadata | undefined;
+let lightImage: ImageMetadata | undefined;
+let rawHtml: string | undefined;
+if (image) {
+	if ('file' in image) {
+		darkImage = image.file;
+	} else if ('dark' in image) {
+		darkImage = image.dark;
+		lightImage = image.light;
+	} else {
+		rawHtml = image.html;
+	}
+}
+
+const stats = [
+	{ value: '11 章', label: '系统教程' },
+	{ value: '5 个', label: '可运行实验' },
+	{ value: '3 层', label: '知识路径' },
+];
+---
+
+<div class="hero">
+	<div class="stack sl-flex">
+		<p class="eyebrow"><span class="pulse"></span> 概念参考 · 系统教程 · 可运行实验</p>
+		<div class="copy sl-flex">
+			<h1 id="_top" data-page-title set:html={title} />
+			{data.draft && <DraftContentNotice />}
+			{tagline && <div class="tagline" set:html={tagline} />}
+		</div>
+		{
+			actions.length > 0 && (
+				<div class="actions sl-flex">
+					{actions.map(
+						({ attrs: { class: className, ...attrs } = {}, icon, link: href, text, variant }) => (
+							<LinkButton {href} {variant} icon={icon?.name} class:list={[className]} {...attrs}>
+								{text}
+								{icon?.html && <Fragment set:html={icon.html} />}
+							</LinkButton>
+						)
+					)}
+				</div>
+			)
+		}
+		<ul class="stats">
+			{
+				stats.map((s) => (
+					<li>
+						<b>{s.value}</b>
+						<span>{s.label}</span>
+					</li>
+				))
+			}
+		</ul>
+	</div>
+
+	<div class="visual" aria-hidden="true">
+		{
+			darkImage && (
+				<Image
+					src={darkImage}
+					{...imageAttrs}
+					class:list={{ 'light:sl-hidden': Boolean(lightImage) }}
+				/>
+			)
+		}
+		{lightImage && <Image src={lightImage} {...imageAttrs} class="dark:sl-hidden" />}
+		{rawHtml && <div class="hero-html sl-flex" set:html={rawHtml} />}
+		{!image && (
+			<div class="term">
+				<div class="term-bar">
+					<i /><i /><i />
+					<span>agent-sandbox — isolated</span>
+				</div>
+				<pre><code><span class="p">$</span> ./sandbox_run.py 'echo hi; id'
+
+<span class="c"># 隔离检查</span>
+uid=1000(agent) gid=1000
+<span class="k">network</span>   disabled
+<span class="k">seccomp</span>   on
+<span class="k">write</span>     only /work
+<span class="ok">ok</span>  渲染进程已收敛</code></pre>
+			</div>
+		)}
+	</div>
+</div>
+
+<style>
+	.hero {
+		position: relative;
+		display: grid;
+		grid-template-columns: 100%;
+		align-items: center;
+		gap: 2.5rem;
+		padding-block: clamp(1.5rem, 1rem + 6vmin, 5rem);
+		isolation: isolate;
+	}
+
+	/* 背景：琥珀光晕 + 细网格 */
+	.hero::before {
+		content: '';
+		position: absolute;
+		inset: -35% -25%;
+		z-index: -1;
+		background-image: var(--hero-glow),
+			linear-gradient(var(--hero-grid) 1px, transparent 1px),
+			linear-gradient(90deg, var(--hero-grid) 1px, transparent 1px);
+		background-size: 100% 100%, 2rem 2rem, 2rem 2rem;
+		-webkit-mask-image: radial-gradient(70% 65% at 50% 38%, #000 45%, transparent 100%);
+		mask-image: radial-gradient(70% 65% at 50% 38%, #000 45%, transparent 100%);
+		pointer-events: none;
+	}
+
+	.stack {
+		flex-direction: column;
+		gap: clamp(1.25rem, 1rem + 1vw, 1.75rem);
+		position: relative;
+	}
+
+	.eyebrow {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.55rem;
+		margin: 0;
+		font-size: var(--sl-text-xs);
+		font-weight: 600;
+		letter-spacing: 0.08em;
+		color: var(--sl-color-text-accent);
+	}
+	.pulse {
+		width: 0.5rem;
+		height: 0.5rem;
+		border-radius: 999rem;
+		background: var(--sl-color-accent);
+		box-shadow: 0 0 0 0.25rem color-mix(in srgb, var(--sl-color-accent) 22%, transparent);
+	}
+
+	.copy {
+		flex-direction: column;
+		gap: 0.9rem;
+	}
+	.copy > * {
+		max-width: 46ch;
+	}
+
+	h1 {
+		font-size: clamp(var(--sl-text-3xl), calc(0.4rem + 5vw), var(--sl-text-6xl));
+		line-height: var(--sl-line-height-headings);
+		font-weight: 700;
+		letter-spacing: -0.025em;
+		color: var(--sl-color-white);
+		margin: 0;
+	}
+
+	.tagline {
+		font-size: clamp(var(--sl-text-base), calc(0.06rem + 2vw), var(--sl-text-xl));
+		line-height: 1.55;
+		color: var(--sl-color-gray-2);
+		margin: 0;
+	}
+
+	.actions {
+		gap: 0.75rem 1.25rem;
+		flex-wrap: wrap;
+		align-items: center;
+	}
+
+	.stats {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1.5rem;
+		margin: 0.5rem 0 0;
+		padding: 0;
+		list-style: none;
+	}
+	.stats li {
+		display: flex;
+		align-items: baseline;
+		gap: 0.4rem;
+	}
+	.stats b {
+		font-size: var(--sl-text-lg);
+		font-weight: 700;
+		color: var(--sl-color-text-accent);
+	}
+	.stats span {
+		font-size: var(--sl-text-xs);
+		color: var(--sl-color-gray-3);
+	}
+
+	/* 右侧装饰终端卡片 */
+	.visual {
+		display: flex;
+		justify-content: center;
+	}
+	.visual > :global(img),
+	.visual > :global(.hero-html) {
+		object-fit: contain;
+		width: min(100%, 25rem);
+		height: auto;
+	}
+	.term {
+		width: min(100%, 27rem);
+		border-radius: 0.9rem;
+		border: 1px solid var(--hero-card-border);
+		background: var(--hero-card);
+		backdrop-filter: blur(10px) saturate(1.4);
+		-webkit-backdrop-filter: blur(10px) saturate(1.4);
+		box-shadow: var(--hero-shadow);
+		overflow: hidden;
+	}
+	.term-bar {
+		display: flex;
+		align-items: center;
+		gap: 0.4rem;
+		padding: 0.6rem 0.9rem;
+		border-bottom: 1px solid var(--sl-color-hairline);
+		background: color-mix(in srgb, var(--sl-color-accent) 7%, transparent);
+	}
+	.term-bar i {
+		width: 0.6rem;
+		height: 0.6rem;
+		border-radius: 999rem;
+		background: var(--sl-color-gray-5);
+	}
+	.term-bar i:first-child {
+		background: color-mix(in srgb, var(--sl-color-accent) 70%, var(--sl-color-gray-5));
+	}
+	.term-bar span {
+		margin-left: 0.5rem;
+		font-family: var(--__sl-font-mono);
+		font-size: 0.7rem;
+		letter-spacing: 0.04em;
+		color: var(--sl-color-gray-3);
+	}
+	.term pre {
+		margin: 0;
+		padding: 1rem 1.1rem 1.2rem;
+		font-family: var(--__sl-font-mono);
+		font-size: 0.78rem;
+		line-height: 1.75;
+		color: var(--sl-color-gray-1);
+		overflow-x: auto;
+	}
+	.term code {
+		font-family: inherit;
+		background: none;
+		border: 0;
+		padding: 0;
+	}
+	.term .p {
+		color: var(--sl-color-accent);
+		font-weight: 700;
+	}
+	.term .c {
+		color: var(--sl-color-gray-4);
+	}
+	.term .k {
+		color: var(--sl-color-text-accent);
+	}
+	.term .ok {
+		display: inline-block;
+		padding: 0 0.4rem;
+		border-radius: 0.3rem;
+		font-weight: 700;
+		color: var(--sl-color-black);
+		background: var(--sl-color-accent);
+	}
+
+	@media (min-width: 50rem) {
+		.hero {
+			grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+		}
+	}
+</style>

@@ -48,6 +48,15 @@ python3 scripts/sync-docs.py   # 从仓库根 markdown 重新生成
 | `agent-sandbox-lab/code/README.md` | `/lab/code/` |
 | `ai-agent-sandbox.md` | `/reference/` |
 
+## 样式定制
+
+站点主题为「琥珀暖橙」，浅色 / 深色双模式，**只改样式、不动内容**：
+
+- `src/styles/custom.css`：覆盖 Starlight 颜色变量（`--sl-color-*`）与字体、代码块、表格、侧边栏等细节，通过 `astro.config.mjs` 的 `customCss` 注入。
+- `src/components/Hero.astro`：首页 splash 的 Hero（标题 + 标语 + 按钮 + 统计 + 终端装饰卡），通过 `components.Hero` 覆盖 Starlight 默认组件。
+
+> 想换主色，只需改 `custom.css` 里 `:root`（深色）与 `:root[data-theme='light']`（浅色）两组 `--sl-color-accent*` 变量。
+
 ## 部署
 
 推送到 `main` 后，由 [`.github/workflows/deploy-site.yml`](../.github/workflows/deploy-site.yml) 自动构建并发布到 GitHub Pages。

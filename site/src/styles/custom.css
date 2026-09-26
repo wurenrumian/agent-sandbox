@@ -1,0 +1,180 @@
+/* ==========================================================================
+   AI Agent 沙箱 · 自定义主题「琥珀暖橙 / Amber」
+   只覆盖 Starlight 的样式变量与少量细节，不改动任何内容与布局结构。
+   色板：琥珀 amber + 暖色中性（warm stone），浅色 / 深色两套。
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap');
+
+/* --------------------------------------------------------------------------
+   1. 深色模式（Starlight 默认主题 = dark）
+   -------------------------------------------------------------------------- */
+:root {
+	/* 暖色中性阶：1 最亮（标题）→ gray-6 面板背景 → black 页面底色 */
+	--sl-color-white: hsl(36 60% 96%);
+	--sl-color-gray-1: hsl(32 24% 90%);
+	--sl-color-gray-2: hsl(30 14% 75%); /* 正文 */
+	--sl-color-gray-3: hsl(28 10% 58%);
+	--sl-color-gray-4: hsl(26 9% 40%);
+	--sl-color-gray-5: hsl(26 12% 26%); /* hairline-light */
+	--sl-color-gray-6: hsl(24 15% 15%); /* 导航 / 侧边栏底色 */
+	--sl-color-gray-7: hsl(24 15% 19%);
+	--sl-color-black: hsl(24 20% 8%); /* 页面底色 */
+
+	/* 琥珀强调色阶 */
+	--sl-color-accent-low: hsl(28 58% 19%);
+	--sl-color-accent: hsl(38 94% 52%);
+	--sl-color-accent-high: hsl(43 97% 68%);
+
+	--sl-color-backdrop-overlay: hsla(24, 25%, 5%, 0.7);
+
+	/* 首页 hero 装饰 */
+	--hero-grid: rgba(245, 158, 11, 0.09);
+	--hero-glow: radial-gradient(42rem 24rem at 18% -10%, rgba(245, 158, 11, 0.22), transparent 68%),
+		radial-gradient(34rem 22rem at 92% 0%, rgba(217, 119, 6, 0.14), transparent 70%);
+	--hero-card: hsla(24, 20%, 11%, 0.72);
+	--hero-card-border: hsla(38, 60%, 60%, 0.28);
+	--hero-shadow: 0 1.5rem 3.5rem -1.5rem rgba(0, 0, 0, 0.75);
+
+	--sl-font: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC',
+		'Microsoft YaHei', sans-serif;
+	--sl-font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+	--sl-text-h1: clamp(2rem, 1.4rem + 2.4vw, 3.25rem);
+	--sl-text-h2: clamp(1.5rem, 1.25rem + 1vw, 1.9rem);
+}
+
+/* --------------------------------------------------------------------------
+   2. 浅色模式
+   -------------------------------------------------------------------------- */
+:root[data-theme='light'] {
+	--sl-color-white: hsl(24 20% 12%);
+	--sl-color-gray-1: hsl(24 16% 16%);
+	--sl-color-gray-2: hsl(24 9% 27%); /* 正文 */
+	--sl-color-gray-3: hsl(24 8% 41%);
+	--sl-color-gray-4: hsl(24 6% 55%);
+	--sl-color-gray-5: hsl(28 16% 80%);
+	--sl-color-gray-6: hsl(32 30% 92%);
+	--sl-color-gray-7: hsl(34 46% 97%); /* 导航底色：暖白 */
+	--sl-color-black: hsl(36 55% 99%); /* 页面底色 */
+
+	--sl-color-accent-high: hsl(27 84% 28%);
+	--sl-color-accent: hsl(28 80% 40%);
+	--sl-color-accent-low: hsl(38 94% 87%);
+
+	--sl-color-backdrop-overlay: hsla(26, 30%, 30%, 0.6);
+
+	--hero-grid: rgba(180, 83, 9, 0.07);
+	--hero-glow: radial-gradient(42rem 24rem at 16% -12%, rgba(245, 158, 11, 0.3), transparent 66%),
+		radial-gradient(34rem 22rem at 94% 0%, rgba(251, 191, 36, 0.22), transparent 70%);
+	--hero-card: hsla(36, 60%, 99%, 0.82);
+	--hero-card-border: hsla(28, 80%, 42%, 0.28);
+	--hero-shadow: 0 1.5rem 3.5rem -1.6rem rgba(120, 53, 15, 0.28);
+}
+
+/* --------------------------------------------------------------------------
+   3. 基础与细节
+   -------------------------------------------------------------------------- */
+html {
+	scroll-behavior: smooth;
+}
+
+::selection {
+	background: var(--sl-color-accent);
+	color: var(--sl-color-black);
+}
+
+/* 顶栏：轻微毛玻璃 */
+.page > header.header {
+	background-color: color-mix(in srgb, var(--sl-color-bg-nav) 82%, transparent);
+	backdrop-filter: blur(14px) saturate(1.5);
+	-webkit-backdrop-filter: blur(14px) saturate(1.5);
+	border-bottom: 1px solid var(--sl-color-hairline);
+}
+
+/* 站点标题：琥珀渐变字 */
+.site-title span {
+	background-image: linear-gradient(
+		100deg,
+		var(--sl-color-white) 20%,
+		var(--sl-color-accent) 130%
+	);
+	-webkit-background-clip: text;
+	background-clip: text;
+	-webkit-text-fill-color: transparent;
+	font-weight: 700;
+	letter-spacing: -0.01em;
+}
+
+/* 标题排版 */
+.sl-markdown-content :is(h1, h2, h3, h4),
+.hero h1 {
+	font-weight: 700;
+	letter-spacing: -0.02em;
+}
+
+/* 正文链接：琥珀下划线 */
+.sl-markdown-content a:not(:where(.not-content *)) {
+	text-underline-offset: 0.25em;
+	text-decoration-color: color-mix(in srgb, var(--sl-color-text-accent) 45%, transparent);
+	transition: text-decoration-color 0.15s ease;
+}
+.sl-markdown-content a:not(:where(.not-content *)):hover {
+	text-decoration-color: var(--sl-color-text-accent);
+}
+
+/* 行内代码：暖色底 + 琥珀字 */
+.sl-markdown-content code:not(:where(.not-content *, pre *)) {
+	background: color-mix(in srgb, var(--sl-color-accent) 12%, var(--sl-color-bg-inline-code));
+	border: 1px solid color-mix(in srgb, var(--sl-color-accent) 22%, transparent);
+	border-radius: 0.35rem;
+	padding: 0.1em 0.35em;
+	color: var(--sl-color-text-accent);
+}
+
+/* 代码块外框：暖色描边 */
+.expressive-code .frame {
+	border-radius: 0.75rem;
+}
+.expressive-code .frame:not(.is-terminal) {
+	border: 1px solid var(--sl-color-hairline-light);
+}
+.expressive-code .frame::before {
+	border-color: color-mix(in srgb, var(--sl-color-accent) 30%, var(--sl-color-hairline)) !important;
+}
+
+/* 表格：暖色表头 */
+.sl-markdown-content table {
+	border: 1px solid var(--sl-color-hairline-light);
+	border-radius: 0.6rem;
+	overflow: hidden;
+}
+.sl-markdown-content thead th {
+	background: color-mix(in srgb, var(--sl-color-accent) 10%, var(--sl-color-bg));
+	color: var(--sl-color-white);
+	font-weight: 600;
+}
+.sl-markdown-content :is(th, td) {
+	border-color: var(--sl-color-hairline);
+}
+
+/* 侧边栏：圆角与悬停 */
+.sidebar-content a {
+	border-radius: 0.45rem;
+}
+
+/* 分页 / 页脚链接的强调色跟随琥珀 */
+.sl-link-button {
+	transition: transform 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
+}
+.sl-link-button:hover {
+	transform: translateY(-1px);
+}
+.sl-link-button.primary {
+	box-shadow: 0 0.5rem 1.25rem -0.6rem color-mix(in srgb, var(--sl-color-accent) 70%, transparent);
+}
+
+/* 焦点环跟随琥珀 */
+:where(a, button, input, [tabindex]):focus-visible {
+	outline-color: var(--sl-color-accent-high);
+}
