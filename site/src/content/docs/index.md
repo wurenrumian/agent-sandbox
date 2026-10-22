@@ -73,8 +73,9 @@ LLM 只能「说」，要真正「做」——跑代码、改文件、装依赖�
     ├── exp/                        # 5 个隔离实验
     ├── code/sandbox_mcp.py         # 把沙箱包成 MCP server
     └── work/agent_code.py          # 模拟「Agent 生成的代码」
-
-site/                               # Astro 文档站（部署到 GitHub Pages）
+├── docs/research/                  # 调研原文：教程里那些带日期的数字出自这里
+├── tools/                          # 仓库自检：check-links.py、check-stars.py
+└── site/                           # Astro 文档站（部署到 GitHub Pages）
 ```
 
 ---

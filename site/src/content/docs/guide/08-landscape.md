@@ -36,7 +36,7 @@ description: "八类产品分类、1k+ stars 开源项目盘点（含快照日�
 |---|---|---|---|---|
 | [opensandbox-group/OpenSandbox](https://github.com/opensandbox-group/OpenSandbox) | 16.0k | Apache-2.0 | Firecracker microVM + Docker | 在自有基础设施上跑沙箱；本地 Docker 起步、K8s 扩展；pause/resume 保留内存与磁盘、出网策略、凭据保险箱；在 CNCF Landscape。宣称 Firecracker 冷启动 64ms P50 / 125ms P99（10 并发） |
 | [e2b-dev/E2B](https://github.com/e2b-dev/E2B) | 14.5k | Apache-2.0 | Firecracker microVM | 生态最成熟、SDK 最完善（Python / TS），Code Interpreter 开箱即用；云服务强，也可自托管 |
-| [microsandbox/microsandbox](https://github.com/microsandbox/microsandbox) | 8.8k | Apache-2.0 | libkrun microVM | Rust 写的本地优先运行时，启动 <100ms，支持 fork / snapshot、OCI 镜像，macOS / Linux / Windows 全支持，可嵌进代码、可 detached 长跑 |
+| [superradcompany/microsandbox](https://github.com/superradcompany/microsandbox) | 8.8k | Apache-2.0 | libkrun microVM | Rust 写的本地优先运行时，启动 <100ms，支持 fork / snapshot、OCI 镜像，macOS / Linux / Windows 全支持，可嵌进代码、可 detached 长跑（2026-10-22 复验：仓库已由 `microsandbox/microsandbox` 改名为 `superradcompany/microsandbox`，旧地址靠 302 跳转仍能打开） |
 | [smol-machines/smolvm](https://github.com/smol-machines/smolvm) | 6.8k | Apache-2.0 | libkrun microVM | 「可分支的 microVM」，可嵌入 + 便携 + 本地隔离，带 npm / PyPI / crates 绑定 |
 | [agent-infra/sandbox](https://github.com/agent-infra/sandbox)（AIO Sandbox） | 6.2k | Apache-2.0 | 单 Docker 容器 | 一个容器塞齐 Browser + Shell + File + VSCode Server + Jupyter + MCP，agent 上手最快 |
 | [rivet-dev/agentos](https://github.com/rivet-dev/agentos) | 4.8k | Apache-2.0 | WebAssembly | 用 WASM 做 Linux 兼容沙箱，体积极小、启动快，适合嵌到服务端 |
