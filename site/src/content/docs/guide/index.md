@@ -63,7 +63,7 @@ Agent 沙箱 = **Agent 的计算机**。它既是限制 Agent 的「笼子」，
 | [04 架构](/agent-sandbox/guide/04-architecture/) | 控制面与数据面 | 职责拆解、完整时序、预热池与会话粘性、反模式清单 |
 | [05 隔离后端选型](/agent-sandbox/guide/05-isolation-backends/) | Docker / gVisor / microVM / VM / WASM | 决策树、选择口诀、gVisor vs microVM、升级路径 |
 | [06 威胁模型](/agent-sandbox/guide/06-threat-model/) | Prompt Injection 与数据外泄 | 两类注入、STRIDE、纵深防御链、白名单代理设计 |
-| [07 产品版图](/agent-sandbox/guide/07-landscape/) | 托管与自建选项 | 评估产品的 8 个问题、选型三问、自建 vs 托管 |
+| [07 产品版图](/agent-sandbox/guide/07-landscape/) | 托管与自建选项、开源项目盘点 | 六类产品分类、1k+ stars 开源清单（含快照日期）、两个别踩的坑、评估产品的 8 个问题、选型三问、自建 vs 托管 |
 | [08 何时不需要沙箱](/agent-sandbox/guide/08-when-not-needed/) | 避免过度设计 | 决策树、L0–L3 分级、过度设计的代价 |
 | [09 实战搭建](/agent-sandbox/guide/09-hands-on/) | bwrap 沙箱 → Docker → MCP 工具 | 可运行步骤、参数对照、防目录穿越的 MCP 封装 |
 | [10 趋势与延伸](/agent-sandbox/guide/10-trends/) | 沙箱要往哪走 | 五个趋势、八条延伸轴、按角色的下一步 |

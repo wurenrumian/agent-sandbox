@@ -45,7 +45,7 @@ PAGES = [
     ("agent-sandbox-tutorial/06-威胁模型.md", "guide/06-threat-model.md", "06 威胁模型",
      "Prompt Injection 与数据外泄、STRIDE 视角与防护清单。"),
     ("agent-sandbox-tutorial/07-产品版图.md", "guide/07-landscape.md", "07 产品版图",
-     "托管与自建选项、选型三问与对比。"),
+     "六类产品分类、1k+ stars 开源项目盘点（含快照日期）、尽调 8 问、选型三问与自建 vs 托管。"),
     ("agent-sandbox-tutorial/08-何时不需要沙箱.md", "guide/08-when-not-needed.md", "08 何时不需要沙箱",
      "避免过度设计的决策树与代价分析。"),
     ("agent-sandbox-tutorial/09-实战搭建.md", "guide/09-hands-on.md", "09 实战搭建",
@@ -102,7 +102,8 @@ def resolve_link(raw: str, src_file: Path, routes: dict[Path, str]) -> str:
 
     # 指向仓库内其它文件（代码等）→ GitHub
     try:
-        rel = target.relative_to(REPO)
+        # as_posix()：Windows 上 Path 会给出反斜杠，链接里必须用正斜杠
+        rel = target.relative_to(REPO).as_posix()
         return f"{GITHUB_BLOB}/{rel}" + (f"#{anchor}" if anchor else "")
     except ValueError:
         return raw

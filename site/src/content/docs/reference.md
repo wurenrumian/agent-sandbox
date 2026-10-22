@@ -129,11 +129,17 @@ Sandbox Control Plane   ← 创建 / 路由 / 鉴权 / 配额 / 快照
 
 > ⚠️ 该领域变化很快，选型时务必核对各家最新的隔离后端、冷启动数据与出网策略。
 
-- **专用沙箱云**：E2B、Daytona、Modal Sandboxes、Cloudflare Sandbox、Vercel Sandbox、Runloop、Blaxel、Northflank 等
+- **闭源沙箱云（托管）**：E2B Cloud、Modal Sandboxes、Cloudflare Sandbox、Vercel Sandbox、Runloop、Blaxel、Northflank 等
 - **大厂内置**：OpenAI 的 Code Interpreter / AgentKit、Anthropic 的 code execution 工具、Google 的 code execution
 - **Agent 框架自带**：OpenHands 的 runtime、AutoGen 的 code executor、LangChain 的各种 executor
+- **开源运行时（可自托管）**：OpenSandbox、E2B 自托管、microsandbox、smolvm、agent-infra AIO Sandbox、Dormice；K8s 平台化用 kubernetes-sigs/agent-sandbox
+- **进程级围栏（不碰容器）**：anthropic-experimental/sandbox-runtime（`srt`）、nono —— 给已有进程套系统调用策略
 - **自建路线**：Kubernetes + Firecracker / Kata / gVisor
-- **浏览器 / computer-use**：容器里跑 Playwright、Browserbase、Steel —— 属于「操作整台电脑」型沙箱
+- **浏览器 / computer-use**：容器里跑 Playwright、Browserbase、Steel、trycua/cua —— 属于「操作整台电脑」型沙箱
+
+> ⛔ **两个坑**：① [daytonaio/daytona](https://github.com/daytonaio/daytona) 有 71.5k stars，但仓库已 **archived**、生产代码 2026-06 起转闭源，**不能算开源选项**；② OpenHands / bytedance/deer-flow / openclaw 这类 **agent 平台自带沙箱，但本身不是沙箱项目**，别拿进候选对比表。
+>
+> 自查只要 30 秒：`curl -s https://api.github.com/repos/<owner>/<repo>` 看 `archived` 与 `pushed_at`。star 快照：2026-10-21。
 
 ---
 

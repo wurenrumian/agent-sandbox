@@ -4,7 +4,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 > 关于「AI Agent 执行沙箱」的一套完整资料：**概念参考 + 系统教程 + 可运行实验**。
-> 最后更新：2026-09-23
+> 最后更新：2026-10-22（第二版 2026-09-23；产品版图与本文件持续修订）
 
 ---
 

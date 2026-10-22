@@ -19,3 +19,6 @@ agent-sandbox-lab/work/*
 site/node_modules/
 site/dist/
 site/.astro/
+
+# ./tmp —— 过程性记忆，默认不进版本库（整个目录）
+/tmp/
