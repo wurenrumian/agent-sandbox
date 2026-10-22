@@ -64,7 +64,7 @@ Agent 沙箱 = **Agent 的计算机**。它既是限制 Agent 的「笼子」，
 | [05 隔离后端选型](/agent-sandbox/guide/05-isolation-backends/) | 五类隔离边界 + 四个配套机制 | 两层结构、五类边界逐档拆解、横向对照表、两条升级路径（强度 / 形态）、决策树 |
 | [06 威胁模型](/agent-sandbox/guide/06-threat-model/) | Prompt Injection 与数据外泄 | 两类注入、STRIDE、纵深防御链、白名单代理设计 |
 | [07 场景与成本](/agent-sandbox/guide/07-scenario-cost/) | 场景 → 硬需求 → 主导成本 | 描述场景的四个属性、两个架构分叉、九个场景骨架、场景→成本矩阵、场景→开源首选 |
-| [08 产品版图](/agent-sandbox/guide/08-landscape/) | 托管与自建选项、开源项目盘点 | 六类产品分类、1k+ stars 开源清单（含快照日期）、两个别踩的坑、评估产品的 8 个问题、选型三问、自建 vs 托管 |
+| [08 产品版图](/agent-sandbox/guide/08-landscape/) | 托管与自建选项、开源项目盘点 | 八类产品分类、1k+ stars 开源清单（含快照日期）、两个别踩的坑、评估产品的 8 个问题、选型三问、自建 vs 托管 |
 | [09 何时不需要沙箱](/agent-sandbox/guide/09-when-not-needed/) | 避免过度设计 | 决策树、L0–L3 分级、过度设计的代价 |
 | [10 实战搭建](/agent-sandbox/guide/10-hands-on/) | bwrap 沙箱 → Docker → MCP 工具 | 可运行步骤、参数对照、防目录穿越的 MCP 封装 |
 | [11 趋势与延伸](/agent-sandbox/guide/11-trends/) | 沙箱要往哪走 | 五个趋势、八条延伸轴、按角色的下一步 |

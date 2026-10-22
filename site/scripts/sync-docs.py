@@ -47,7 +47,7 @@ PAGES = [
     ("agent-sandbox-tutorial/07-场景与成本.md", "guide/07-scenario-cost.md", "07 场景与成本",
      "按四个属性描述场景，九个场景的硬需求与主导成本，场景→成本矩阵与开源首选。"),
     ("agent-sandbox-tutorial/08-产品版图.md", "guide/08-landscape.md", "08 产品版图",
-     "六类产品分类、1k+ stars 开源项目盘点（含快照日期）、尽调 8 问、选型三问与自建 vs 托管。"),
+     "八类产品分类、1k+ stars 开源项目盘点（含快照日期）、尽调 8 问、选型三问与自建 vs 托管。"),
     ("agent-sandbox-tutorial/09-何时不需要沙箱.md", "guide/09-when-not-needed.md", "09 何时不需要沙箱",
      "避免过度设计的决策树与代价分析。"),
     ("agent-sandbox-tutorial/10-实战搭建.md", "guide/10-hands-on.md", "10 实战搭建",
