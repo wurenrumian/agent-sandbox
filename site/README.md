@@ -59,8 +59,17 @@ python3 scripts/sync-docs.py   # 从仓库根 markdown 重新生成（Windows �
 
 > 想换主色，只需改 `custom.css` 里 `:root`（深色）与 `:root[data-theme='light']`（浅色）两组 `--sl-color-accent*` 变量。
 
-## 部署
+## 部署（已关闭自动部署）
 
-推送到 `main` 后，由 [`.github/workflows/deploy-site.yml`](../.github/workflows/deploy-site.yml) 自动构建并发布到 GitHub Pages。
+> **2026-10-22 起不再自动部署**：`.github/workflows/deploy-site.yml` 已删除。线上地址 <https://wurenrumian.github.io/agent-sandbox/> 仍可访问，但它**停在最后一次构建**（2026-10-22，教程第三版）——之后改仓库里的 markdown 不会再自动上线。
 
-首次使用需在仓库 **Settings → Pages → Source** 选择 **GitHub Actions**。
+要更新线上站点时，两条路：
+
+1. **临时恢复自动部署**：从删除前的提交取回文件再推上去，然后手动触发或再推一次。
+   ```bash
+   git show 7bf1459:.github/workflows/deploy-site.yml > .github/workflows/deploy-site.yml
+   ```
+   （首次用 Pages 时还需要在仓库 **Settings → Pages → Source** 选择 **GitHub Actions**。）
+2. **本地构建后自己发布**：`npm run build`，产物在 `site/dist/`，交给任何静态托管即可。
+
+> 注意：站点正文是生成物（见上），所以**恢复部署前先确认触发路径覆盖了真源**——`deploy-site.yml` 当初的 `paths` 里除了 `site/**`，还必须包含 `agent-sandbox-tutorial/**`、`agent-sandbox-lab/**`、`ai-agent-sandbox.md`、`README.md`，否则改正文不会触发构建。
