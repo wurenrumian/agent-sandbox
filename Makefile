@@ -3,6 +3,10 @@
 
 .PHONY: help lab check-links site-sync site-dev site-build site-preview clean
 
+# Windows 上一般只有 `python`，Linux / macOS 上一般是 `python3`；这里自动挑一个存在的。
+# 想指定解释器：make check-links PYTHON=/path/to/python
+PYTHON ?= $(shell command -v python3 >/dev/null 2>&1 && echo python3 || echo python)
+
 help:  ## 显示本帮助
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) \
 		| awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-16s\033[0m %s\n", $$1, $$2}'
@@ -10,11 +14,11 @@ help:  ## 显示本帮助
 lab:  ## 运行全部沙箱实验
 	cd agent-sandbox-lab && ./run_all.sh
 
-check-links:  ## 检查所有 markdown 相对链接
-	python3 tools/check_links.py
+check-links:  ## 检查所有 markdown 相对链接与四处索引一致性
+	$(PYTHON) tools/check_links.py
 
 site-sync:  ## 从仓库 markdown 重新生成站点内容
-	cd site && python3 scripts/sync-docs.py
+	cd site && $(PYTHON) scripts/sync-docs.py
 
 site-dev:  ## 启动文档站开发服务器
 	cd site && npm run dev

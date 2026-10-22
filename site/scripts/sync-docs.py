@@ -8,6 +8,7 @@
 
 用法（在 site/ 目录下）：
     python3 scripts/sync-docs.py
+    # Windows 上没有 python3 别名就写 python；仓库根的 make site-sync 会自动挑一个
 """
 from __future__ import annotations
 
@@ -39,7 +40,7 @@ PAGES = [
     ("agent-sandbox-tutorial/03-能力清单.md", "guide/03-capabilities.md", "03 能力清单",
      "一个 Agent 沙箱应提供的文件、Shell、网络、快照等能力，及优先级排序。"),
     ("agent-sandbox-tutorial/04-架构.md", "guide/04-architecture.md", "04 架构",
-     "控制面与数据面，以及快照与分叉、pause / resume、出网控制与凭据保险箱。"),
+     "控制面与数据面，以及快照与分叉、pause / resume、出网控制、凭据保险箱与编排接入。"),
     ("agent-sandbox-tutorial/05-隔离后端选型.md", "guide/05-isolation-backends.md", "05 隔离后端选型",
      "五类隔离边界（microVM / 用户态内核 / 容器+加固 / OS 系统调用策略 / WASM）与四个配套机制。"),
     ("agent-sandbox-tutorial/06-威胁模型.md", "guide/06-threat-model.md", "06 威胁模型",

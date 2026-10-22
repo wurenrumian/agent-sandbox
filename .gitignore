@@ -20,5 +20,9 @@ site/node_modules/
 site/dist/
 site/.astro/
 
+# 站点正文：由 site/scripts/sync-docs.py 从仓库根 markdown 生成，不入版本库
+# （改文档请改仓库根 markdown，然后跑 make site-sync）
+site/src/content/docs/
+
 # ./tmp —— 过程性记忆，默认不进版本库（整个目录）
 /tmp/

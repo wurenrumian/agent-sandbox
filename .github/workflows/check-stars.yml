@@ -1,0 +1,39 @@
+name: 复查易腐数字（star / 许可 / 归档 / 最后推送）
+
+# 教程里那些数字（star、许可、归档状态、最后推送时间）会腐。附录 D 教了怎么人工复查，
+# 这个 workflow 把「定期复查」变成每月一次自动跑，结果写进 job summary 供人看一眼。
+#
+# 注意：**漂移不会让这个 job 变红**。仓库归档或长期不推是常见事实，不是失败；
+# 只有「一个仓库都没查成」与「撞上 GitHub 速率限制」才返回非零退出码（见 tools/check-stars.py）。
+on:
+  schedule:
+    # 每月 1 号 03:00 UTC（北京时间 11:00）
+    - cron: '0 3 1 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check-stars:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: 复查 star / 许可 / 归档 / 最后推送
+        env:
+          # 未认证配额每小时只有几十次，够跑一遍默认清单但没余量；用自带的 token 提配额
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python3 tools/check-stars.py > stars.txt 2> stars.err
+          cat stars.err
+          {
+            echo "## 复查结果（$(date -u +%Y-%m-%d)）"
+            echo
+            echo '```text'
+            cat stars.txt
+            echo '```'
+            echo
+            echo '```text'
+            cat stars.err
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"

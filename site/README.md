@@ -22,11 +22,13 @@ npm run preview  # 预览构建结果
 
 ## 文档内容从哪来
 
-站点的正文**由仓库根目录的 markdown 生成**，不要直接改 `src/content/docs/` 下的文件（会被覆盖）。
+站点的正文**由仓库根目录的 markdown 生成**：`src/content/docs/` 是**生成物，不入版本库**，不要直接改它（改仓库根 markdown，再跑同步）。
 
 ```bash
-python3 scripts/sync-docs.py   # 从仓库根 markdown 重新生成
+python3 scripts/sync-docs.py   # 从仓库根 markdown 重新生成（Windows 上换成 python；或直接用仓库根的 make site-sync）
 ```
+
+> 克隆下来后第一次 `npm run build` / `npm run dev` 之前，**必须先跑一次同步**，否则 `src/content/docs/` 还不存在。
 
 脚本会：
 
