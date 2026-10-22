@@ -130,7 +130,7 @@ Sandbox Control Plane   ← 创建 / 路由 / 鉴权 / 配额 / 快照
 - **大厂内置**：OpenAI 的 Code Interpreter / AgentKit、Anthropic 的 code execution 工具、Google 的 code execution
 - **Agent 框架自带**：OpenHands 的 runtime、AutoGen 的 code executor、LangChain 的各种 executor
 - **开源运行时（可自托管）**：OpenSandbox、E2B 自托管、microsandbox、smolvm、agent-infra AIO Sandbox、Dormice；K8s 平台化用 kubernetes-sigs/agent-sandbox
-- **进程级围栏（不碰容器）**：anthropic-experimental/sandbox-runtime（`srt`）、nono —— 给已有进程套系统调用策略
+- **进程级围栏（不碰容器）**：anthropics/sandbox-runtime（`srt`）、nono —— 给已有进程套系统调用策略
 - **自建路线**：Kubernetes + Firecracker / Kata / gVisor
 - **浏览器 / computer-use**：容器里跑 Playwright、Browserbase、Steel、trycua/cua —— 属于「操作整台电脑」型沙箱
 

@@ -1,5 +1,5 @@
 ---
-title: "10 趋势与延伸"
+title: "11 趋势与延伸"
 description: "沙箱的五个趋势、八条延伸轴与四个最有价值的方向。"
 ---
 
@@ -60,8 +60,8 @@ description: "沙箱的五个趋势、八条延伸轴与四个最有价值的方
 
 | 你是 | 下一步 |
 |---|---|
-| 应用开发者 | 照着[第 9 章](/agent-sandbox/guide/09-hands-on/)把沙箱接进 Agent，先做到「默认断网 + 用完即销毁」 |
-| 架构 / 选型 | 用[第 7 章](/agent-sandbox/guide/07-landscape/)的三问 + 8 个问题做一次候选评估 |
+| 应用开发者 | 照着[第 10 章](/agent-sandbox/guide/10-hands-on/)把沙箱接进 Agent，先做到「默认断网 + 用完即销毁」 |
+| 架构 / 选型 | 用[第 8 章](/agent-sandbox/guide/08-landscape/)的三问 + 8 个问题做一次候选评估 |
 | 安全同学 | 把[第 6 章](/agent-sandbox/guide/06-threat-model/) + [附录 C](/agent-sandbox/guide/appendix-c-security-checklist/)变成上线卡点 |
 | 想深入 | 读 microVM / gVisor 文档，动手改一次隔离后端实现 |
 

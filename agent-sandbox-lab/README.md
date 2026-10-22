@@ -3,7 +3,7 @@
 > 用 **Linux namespaces** 和 **bubblewrap（bwrap）** 做的一组真实可跑的沙箱实验。
 > 不需要 Docker、不需要 root，普通用户即可运行。最后更新：2026-09-23
 
-[← 返回资料包总入口](../README.md) · 对应教程 [第 9 章：实战搭建](../agent-sandbox-tutorial/09-实战搭建.md)
+[← 返回资料包总入口](../README.md) · 对应教程 [第 10 章：实战搭建](../agent-sandbox-tutorial/10-实战搭建.md)
 
 ---
 
@@ -230,6 +230,6 @@ print(r["exit_code"], r["stdout"], r["stderr"])
 ## 相关文档
 
 - [资料包总入口](../README.md)
-- [教程第 9 章：实战搭建](../agent-sandbox-tutorial/09-实战搭建.md)
+- [教程第 10 章：实战搭建](../agent-sandbox-tutorial/10-实战搭建.md)
 - [实测输出记录 RESULTS.md](RESULTS.md)
 - [MCP 配套代码](code/README.md)

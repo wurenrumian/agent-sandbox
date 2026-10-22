@@ -230,6 +230,6 @@ print(r["exit_code"], r["stdout"], r["stderr"])
 ## 相关文档
 
 - [资料包总入口](/agent-sandbox/)
-- [教程第 9 章：实战搭建](/agent-sandbox/guide/09-hands-on/)
+- [教程第 10 章：实战搭建](/agent-sandbox/guide/10-hands-on/)
 - [实测输出记录 RESULTS.md](/agent-sandbox/lab/results/)
 - [MCP 配套代码](/agent-sandbox/lab/code/)

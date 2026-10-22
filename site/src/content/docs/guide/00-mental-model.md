@@ -106,7 +106,7 @@ description: "先建立正确的心智模型：沙箱是 Agent 的计算机。"
 
 - ❌ **「上了沙箱就安全了」**。沙箱防的是「逃逸」，但 Agent 场景的头号风险是**借 Agent 之手把数据发出去**——沙箱毫发无损，数据已经泄漏。见 [第 6 章](/agent-sandbox/guide/06-threat-model/)。
 - ❌ **「沙箱就是 Docker」**。容器是一种实现，不是定义。多租户不可信场景里，裸容器往往不够，需要 microVM / gVisor。见 [第 5 章](/agent-sandbox/guide/05-isolation-backends/)。
-- ❌ **「隔离越强越好」**。隔离有成本：更慢、更贵、更复杂。给「查天气」这种函数调用套 microVM 是纯浪费。见 [第 8 章](/agent-sandbox/guide/08-when-not-needed/)。
+- ❌ **「隔离越强越好」**。隔离有成本：更慢、更贵、更复杂。给「查天气」这种函数调用套 microVM 是纯浪费。见 [第 9 章](/agent-sandbox/guide/09-when-not-needed/)。
 
 ## 0.7 本章要点
 
